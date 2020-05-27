@@ -1,18 +1,3 @@
-/*
-
-7. HTML Mastery
-a) a backend különböző 
-HTML feladatok leírását tárolja, minden feladathoz tartozzon egy 
-  leírás, egy stringként tárolt 
-  forráskód részlet és egy 
-  másik forráskód részlet, amely a sikeres megoldást ellenőrzi. 
-A szerver kezelje 
-felhasználók regisztrációját is, minden felhasználó rendelkezzen egy
-  “mastery” szinttel
-, amely jelzi a felhasználó által sikeresen leküzdött feladatok számát.
-
-*/
-
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'

@@ -1,19 +1,18 @@
-/*
-HTML feladatok leírását tárolja, minden feladathoz tartozzon egy 
-  leírás, egy stringként tárolt 
-  forráskód részlet és egy 
-  másik forráskód részlet, amely a sikeres megoldást ellenőrzi. 
-*/
-
 import mongoose from 'mongoose'
 
 export type TaskDocument = mongoose.Document & {
+  name: string
   description: string
   base_source_code: string
   solution: string
 }
 
 const taskSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
   description: {
     type: String,
     required: true

@@ -1,9 +1,3 @@
-/*
-felhasználók regisztrációját is, minden felhasználó rendelkezzen egy
-  “mastery” szinttel
-, amely jelzi a felhasználó által sikeresen leküzdött feladatok számát.
-*/
-
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
