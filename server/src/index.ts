@@ -21,7 +21,7 @@ import users from './routes/userRoute'
 import mongoose from 'mongoose'
 import expressSession from 'express-session'
 import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
+import { setUpPassport } from './config/passportConfig'
 
 // label constants 
 const PORT = 3000
@@ -31,7 +31,10 @@ const USERS = '/users'
 
 // built-up constants
 const app = express()
-const db = mongoose.connection;
+const db = mongoose.connection
+
+//set-up passport
+setUpPassport()
 
 // set-up app
 app.use(cookieParser())
@@ -39,6 +42,16 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 app.use(bodyParser.json())
+app.use(expressSession({
+  secret: 'itsasecretmessage',
+  cookie: {
+    maxAge : 3600000
+  },
+  resave: false,
+  saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 // set-up database
 mongoose.set('useCreateIndex', true)

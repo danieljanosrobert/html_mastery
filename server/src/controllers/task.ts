@@ -10,9 +10,9 @@ export const createTask = async (req: any, res: any) => {
   task.save((saveError) => {
     if (saveError) {
       console.error(saveError)
-      res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
+      return res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
         .send('Error occured during saving the task.')
     }
-    res.sendStatus(constants.HTTP_STATUS_OK)
+    return res.sendStatus(constants.HTTP_STATUS_OK)
   })
 }

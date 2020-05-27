@@ -7,4 +7,8 @@ router.post('/register', (req, res) => {
   controller.registerUser(req, res)
 })
 
-export default router;
+router.post('/login', (req, res, next) => {
+  controller.login(req, res, next)
+})
+
+export default router

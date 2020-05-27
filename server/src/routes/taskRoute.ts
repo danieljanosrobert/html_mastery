@@ -11,4 +11,4 @@ router.route('/task').get((req, res) => {
   res.status(403).send('Don\'t do this')
 })
 
-export default router;
+export default router
