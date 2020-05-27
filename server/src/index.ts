@@ -17,6 +17,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import tasks from './routes/taskRoute'
+import users from './routes/userRoute'
 import mongoose from 'mongoose'
 import expressSession from 'express-session'
 import passport from 'passport'
@@ -26,6 +27,7 @@ import { Strategy as LocalStrategy } from 'passport-local'
 const PORT = 3000
 const DB_URL = 'mongodb://localhost/html_mastery' 
 const API = '/api'
+const USERS = '/users'
 
 // built-up constants
 const app = express()
@@ -39,6 +41,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 // set-up database
+mongoose.set('useCreateIndex', true)
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -46,6 +49,7 @@ mongoose.connect(DB_URL, {
 
 // routing
 app.use(API, tasks)
+app.use(API + USERS, users)
 
 // connect and run
 db.on('error', console.error.bind(console, 'connection error:'))
