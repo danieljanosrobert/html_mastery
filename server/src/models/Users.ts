@@ -4,7 +4,8 @@ import bcrypt from 'bcrypt'
 export type UserDocument = mongoose.Document & {
   username: string,
   password: string,
-  mastery: number
+  mastery: number,
+  resolved_tasks: string[],
 
   comparePassword: comparePasswordFunction
 }
@@ -16,7 +17,8 @@ const userSchema  = new mongoose.Schema({
     unique: true,
   },
   password: String,
-  mastery: Number
+  mastery: Number,
+  resolved_tasks: [String]
 })
 
 type comparePasswordFunction = (candidatePassword: string, callback: (err: any, isMatch: any) => {}) => void

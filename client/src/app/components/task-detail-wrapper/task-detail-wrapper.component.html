@@ -1,0 +1,22 @@
+<div class="modal-header custom-colors-2">
+  <h4 class="modal-title">{{task.title}}</h4>
+  <a type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </a>
+</div>
+<div class="px-0 pb-0 modal-body custom-colors-1">
+  <p class="px-4 card-text text-justify text-muted">{{task.description}}</p>
+  <div class="custom-colors-3 py-2 mb-0">
+    <pre class="px-4 custom-text-light">{{task.base_source_code}}</pre>
+  </div>
+</div>
+<div class="modal-footer custom-colors-2">
+  <div class="mr-auto justify-content-center align-self-center">
+    <p class="my-auto">Időlimit: {{getTimeLimit()}}</p>
+  </div>
+  <button type="button"
+          id="ok-button"
+          class="right btn btn-dark custom-colors-4"
+          (click)="startTask()"
+          >{{buttonText}}</button>
+</div>

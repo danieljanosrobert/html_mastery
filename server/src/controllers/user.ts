@@ -6,7 +6,8 @@ export const registerUser = async (req: any, res: any) => {
   const user = new User({
     username: req.body.username,
     password: req.body.password,
-    mastery: 0
+    mastery: 0,
+    resolved_tasks: []
   })
   user.save((saveError) => {
     if (saveError) {
@@ -35,7 +36,6 @@ export const login = async (req: any, res: any, next: any) => {
 }
 
 export const logout = async (req: any, res: any) => {
-  console.log(req.session.passport.user)
   req.logout()
   return res.sendStatus(constants.HTTP_STATUS_OK)
 }

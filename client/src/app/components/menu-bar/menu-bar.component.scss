@@ -1,0 +1,10 @@
+:host ::ng-deep .popover {
+  min-height: 300px;
+  max-width: 300px !important;
+}
+
+.task-helpers{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+}

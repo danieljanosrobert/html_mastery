@@ -1,0 +1,10 @@
+<div class="main" style="height: 101%;">
+  <div *ngIf="task" class="h-100 row pa-0 ma-0">
+    <div class="col-6 custom-bg-dark h-100 pa-0 ma-0">
+      <ngx-monaco-editor class="h-100 pa-0 ma-0" [options]="editorOptions" [(ngModel)]="task.base_source_code"></ngx-monaco-editor>
+    </div>
+    <div class="col-6 pa-0 ma-0">
+      <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(task.base_source_code)"></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="main custom-colors-3">
+  <h1 class="display-3 py-5">Feladatok</h1>
+  <div *ngFor="let task of tasks" class="card custom-colors-1 mb-2">
+    <div class="card-header custom-colors-2" (click)="showTask(task)">
+      <div class="row">
+        <div class="col lead">
+          {{task.title}}
+        </div>
+        <div class="text-right col">
+          <fa-icon [icon]="faChevronDown" [rotate]="rotateChevronIfTaskIsSelected(task)" size="lg"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isTaskSelected(task)" class="card-body row">
+      <div class="col-10">
+        <h4 class="card-title">{{task.title}}</h4>
+        <p class="card-text text-justify text-muted">{{task.description}}</p>
+        <p class="lead">Időlimit: {{timeLimitToString(task.max_duration)}}</p>
+      </div> 
+      <div class="col-2 justify-content-center align-self-center">
+        <button class="right btn btn-dark btn-block" (click)="openTaskDetails(task)">Feladat megtekintése</button>
+      </div>
+    </div>
+  </div>
+</div>

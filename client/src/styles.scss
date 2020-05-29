@@ -1,0 +1,74 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+.pointer {
+  cursor: pointer !important;
+}
+
+html, body {
+  height: 100%;
+}
+
+.pb-10{
+  padding-bottom: 10%;
+}
+
+.toast {
+  position: absolute;
+  top: 56px;
+  z-index: 90;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.main {
+  padding-top: 56px;
+  height: 100%;
+}
+
+.custom-colors-1 {
+  color: #112938;
+  background-color: #E0EBCF;
+}
+
+.custom-colors-2 {
+  color: #112938;
+  background-color: #BAE1D3;
+}
+
+.custom-colors-3 {
+  color: #BAE1D3;
+  background-color: #112938;
+}
+
+.custom-colors-4 {
+  color: #E0EBCF;
+  background-color: #112938;
+}
+
+.custom-text-light {
+  color: #E0EBCF;
+}
+
+.custom-text-mid {
+  color: #BAE1D3;
+}
+
+.custom-text-dark {
+  color: #112936;
+}
+
+.custom-bg-light {
+  background-color: #E0EBCF;
+}
+
+.custom-bg-mid {
+  background-color: #BAE1D3;
+}
+
+.custom-bg-dark {
+  background-color: #112936;
+}
+

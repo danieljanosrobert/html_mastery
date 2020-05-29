@@ -1,2 +1,6 @@
 # html_mastery
-PRF beadandó
+HTML Mastery
+
+a) a backend különböző HTML feladatok leírását tárolja, minden feladathoz tartozzon egy leírás, egy stringként tárolt forráskód részlet és egy másik forráskód részlet, amely a sikeres megoldást ellenőrzi. A szerver kezelje felhasználók regisztrációját is, minden felhasználó rendelkezzen egy “mastery” szinttel, amely jelzi a felhasználó által sikeresen leküzdött feladatok számát.
+
+b) A frontenden a felhasználó bejelentkezés után tudjon indítani feladatokat, kihívásokat, amelyek tartalmát a frontend a szerverről kéri le, és a usernek egy megadott idő lejárta előtt kell végrehajtania. A megoldófelület egy kétpaneles elosztást követ, az egyik oldalon HTML forráskód legyen szerkeszthető, a másik oldalon pedig ez a forráskód legyen az Angular ngSanitize modulja segítségével a komponens részeként megjelenítve. A megoldó felületen legyen egy tesztelési gomb is, amely meghív egy funkciót és leellenőrzi, hogy sikeres megoldásra került-e a feladat. (Pl. hozz létre egy gombot egy div tagen belül úgy, hogy a div id-ja “protector” legyen, a gombé pedig “greetButton”)

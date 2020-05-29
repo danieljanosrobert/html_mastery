@@ -7,21 +7,32 @@ import mongoose from 'mongoose'
 import expressSession from 'express-session'
 import passport from 'passport'
 import { setUpPassport } from './config/passportConfig'
+import cors from "cors"
 
-// label constants 
+var router = express.Router()
+
+const options:cors.CorsOptions = {
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
+  credentials: true,
+  methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+  origin: "localhost:4200",
+  preflightContinue: false
+}
+
+router.use(cors(options))
+
+router.options("*", cors(options))
+
 const PORT = 3000
 const DB_URL = 'mongodb://localhost/html_mastery' 
 const API = '/api'
-const USERS = '/users'
 
-// built-up constants
 const app = express()
 const db = mongoose.connection
 
-//set-up passport
 setUpPassport()
 
-// set-up app
+app.use(cors())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({
   extended: true
@@ -38,18 +49,15 @@ app.use(expressSession({
 app.use(passport.initialize())
 app.use(passport.session())
 
-// set-up database
 mongoose.set('useCreateIndex', true)
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
 
-// routing
 app.use(API, tasks)
-app.use(API + USERS, users)
+app.use(API, users)
 
-// connect and run
 db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', () => {
   app.listen(PORT, () => {

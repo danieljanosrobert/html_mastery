@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active">html_mastery</a>
+
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav.link">
+        <a class="nav-link" [class.active]="currentActive('/home')" [routerLink]="['/home']"
+          routerLinkActive="router-link-active">Főoldal</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="currentActive('/dashboard')" [routerLink]="['/dashboard']"
+          routerLinkActive="router-link-active">Feladatok</a>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="activeRouteIsTask && task" class="nav task-helpers">
+    <countdown *ngIf="task.max_duration" class="navbar-text text-light mx-4" (event)="taskFailed($event)" [config]="{leftTime: task.max_duration * 60}"></countdown>
+    <div class="custom-text-mid nav-item px-2 justify-content-center align-self-center">
+      <fa-icon [icon]="faQuestionCircle" size="2x" (click)="openTaskDetails()"></fa-icon>
+    </div>
+  </div>
+
+  <div class="navbar-nav nav-right">
+    <span class="navbar navbar-text text-light">mastery_level: 0</span>
+    <div class="nav-item px-2">
+      <button type="button" class="btn btn-secondary" [ngbPopover]="registerContent" [autoClose]="'outside'"
+        #registerPopover="ngbPopover">Regisztráció</button>
+    </div>
+    <div class="nav-item px-2">
+      <button type="button" class="btn btn-secondary" [ngbPopover]="loginContent" [autoClose]="'outside'"
+        #loginPopover="ngbPopover">Bejelentkezés</button>
+    </div>
+    <div class="nav-item px-2">
+      <button type="button" class="btn btn-secondary">Kijelentkezés</button>
+    </div>
+    <div class="nav-item px-2">
+      <button type="button" class="btn btn-secondary">Feladat beküldése</button>
+    </div>
+  </div>
+</nav>
+
+<ng-template #loginContent>
+  <app-login (registerClicked)="loginPopover.close(); registerPopover.open()"></app-login>
+</ng-template>
+<ng-template #registerContent>
+  <app-register></app-register>
+</ng-template>

@@ -1,14 +1,15 @@
 import mongoose from 'mongoose'
 
 export type TaskDocument = mongoose.Document & {
-  name: string
+  title: string
   description: string
   base_source_code: string
-  solution: string
+  solution: string,
+  max_duration: number
 }
 
 const taskSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true,
     unique: true
@@ -21,7 +22,8 @@ const taskSchema = new mongoose.Schema({
   solution: {
     type: String,
     required: true,
-  }
+  },
+  max_duration: Number
 })
 
 export const Task = mongoose.model<TaskDocument>('Task', taskSchema)
