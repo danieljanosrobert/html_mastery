@@ -16,13 +16,6 @@ const API = '/api'
 const app = express()
 const db = mongoose.connection
 
-app.use(cors())
-setUpPassport()
-app.use(cookieParser())
-app.use(bodyParser.urlencoded({
-  extended: true
-}))
-app.use(bodyParser.json())
 app.use(expressSession({
   secret: 'itsasecretmessage',
   cookie: {
@@ -31,6 +24,17 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: true
 }))
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:4200'
+}))
+setUpPassport()
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+app.use(bodyParser.json())
+
 app.use(passport.initialize())
 app.use(passport.session())
 

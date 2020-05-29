@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { MonacoEditorModule } from 'ngx-monaco-editor'
 import { CountdownModule } from 'ngx-countdown'
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -17,6 +17,7 @@ import { MenuBarComponent } from './components/menu-bar/menu-bar.component'
 import { TaskDetailWrapperComponent } from './components/task-detail-wrapper/task-detail-wrapper.component'
 import { HomepageComponent } from './pages/homepage/homepage.component'
 import { ToastComponent } from './components/toast/toast.component'
+import { HttpRequestInterceptor } from './interceptor/HttpRequestInterceptor'
 
 
 @NgModule({
@@ -36,12 +37,16 @@ import { ToastComponent } from './components/toast/toast.component'
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    FontAwesomeModule, 
+    FontAwesomeModule,
     HttpClientModule,
     CountdownModule,
     MonacoEditorModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    [
+      { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+    ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

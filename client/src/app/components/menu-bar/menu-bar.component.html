@@ -22,29 +22,31 @@
     </div>
   </div>
 
-  <div class="navbar-nav nav-right">
-    <span *ngIf="username" class="navbar navbar-text text-light">{{username}}</span>
-    <span *ngIf="username" class="navbar navbar-text text-light">mastery_level: {{mastery_level}}</span>
-    <div *ngIf="!username" class="nav-item px-2">
+  <div class="navbar-nav nav-right" *ngIf="!username">
+    <div class="nav-item px-2">
       <button type="button" class="btn btn-secondary" [ngbPopover]="registerContent" [autoClose]="'outside'"
         #registerPopover="ngbPopover">Regisztráció</button>
     </div>
-    <div *ngIf="!username" class="nav-item px-2">
+    <div class="nav-item px-2">
       <button type="button" class="btn btn-secondary" [ngbPopover]="loginContent" [autoClose]="'outside'"
         #loginPopover="ngbPopover">Bejelentkezés</button>
     </div>
+    <ng-template #loginContent>
+      <app-login (registerClicked)="loginPopover.close(); registerPopover.open()"></app-login>
+    </ng-template>
+    <ng-template #registerContent>
+      <app-register (registerSucceed)="registerPopover.close()" ></app-register>
+    </ng-template>
+  </div>
+
+  <div class="navbar-nav nav-right">
+    <span *ngIf="username" class="navbar navbar-text text-light">{{username}}</span>
+    <span *ngIf="username" class="navbar navbar-text text-light">mastery_level: {{mastery_level}}</span>
     <div *ngIf="username && !activeRouteIsTask" class="nav-item px-2">
       <button type="button" (click)="logout()" class="btn btn-secondary">Kijelentkezés</button>
     </div>
     <div *ngIf="activeRouteIsTask && task" class="nav-item px-2">
-      <button type="button" class="btn btn-secondary">Feladat beküldése</button>
+      <button type="button" (click)="fireSendTaskRequest()" class="btn btn-secondary">Feladat beküldése</button>
     </div>
   </div>
 </nav>
-
-<ng-template #loginContent>
-  <app-login (registerClicked)="loginPopover.close(); registerPopover.open()"></app-login>
-</ng-template>
-<ng-template #registerContent>
-  <app-register></app-register>
-</ng-template>

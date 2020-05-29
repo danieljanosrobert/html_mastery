@@ -3,6 +3,10 @@ import { User } from '../models/Users'
 import passport from 'passport'
 
 export const registerUser = async (req: any, res: any) => {
+  if (req.body.password !== req.body.confirm_password) {
+    return res.status(constants.HTTP_STATUS_BAD_REQUEST)
+      .send({msg: 'Passwords does not match!'})
+  }
   const user = new User({
     username: req.body.username,
     password: req.body.password,
@@ -30,7 +34,7 @@ export const login = async (req: any, res: any, next: any) => {
     }
     req.logIn(user, (err: any) => {
       if (err) { return next(err) }
-      return res.status(constants.HTTP_STATUS_OK).send({
+      res.status(constants.HTTP_STATUS_OK).send({
         username: user.username,
         mastery_level: user.mastery
       })

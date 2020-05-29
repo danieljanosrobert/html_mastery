@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { User, AuthenticatableUser } from 'src/app/interfaces/user'
+import { User, AuthenticatableUser, RegisterableUser } from 'src/app/interfaces/user'
 import { environment } from 'src/environments/environment'
 import { Observable } from 'rxjs'
 
-
 const httpOptions = {
   headers: new HttpHeaders({
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   })
 }
 
@@ -23,11 +22,11 @@ export class UserService {
     return this.http.post<User>(`${environment.apiUrl}/users/login`, user, httpOptions)
   }
 
-  register(user: AuthenticatableUser): Observable<void> {
+  register(user: RegisterableUser): Observable<void> {
     return this.http.post<void>(`${environment.apiUrl}/users/register`, user)
   }
 
-  logout(user: User): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/users/logout`, user)
+  logout(username: string): Observable<void> {
+    return this.http.post<void>(`${environment.apiUrl}/users/logout`, {username: username})
   }
 }

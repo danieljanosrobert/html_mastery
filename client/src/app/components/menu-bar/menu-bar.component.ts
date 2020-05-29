@@ -8,6 +8,8 @@ import { TaskDetailWrapperComponent } from 'src/app/components/task-detail-wrapp
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastService } from 'src/app/services/toast/toast.service'
 import { EventEmitter } from 'protractor'
+import { UserService } from 'src/app/services/user/user-service.service'
+import { TaskService } from 'src/app/services/task/task.service'
 
 @Component({
   selector: 'app-menu-bar',
@@ -26,7 +28,9 @@ export class MenuBarComponent implements OnInit {
     private router: Router,
     private stateService: StateService,
     private modalService: NgbModal,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private userService: UserService,
+    private taskService: TaskService
   ) { }
 
   ngOnInit(): void {
@@ -59,8 +63,21 @@ export class MenuBarComponent implements OnInit {
   }
 
   logout(): void {
-    this.toastService.show('Sikeres kijelentkezés.', {classname: 'bg-info'})
-    this.stateService.logout()
+    this.userService.logout(this.username)
+      .subscribe(() => {
+        this.toastService.show('Sikeres kijelentkezés.', {classname: 'bg-info'})
+        this.stateService.logout()
+      })
+  }
+
+  fireSendTaskRequest(): void {
+    const modified_source_code = this.task.base_source_code
+    this.task.max_duration = 300
+    this.taskService.reviewTask({
+      username: this.username,
+      task_title: this.task.title,
+      source_code: modified_source_code
+    })
   }
 
   private subscribeToRouteChange(): void {

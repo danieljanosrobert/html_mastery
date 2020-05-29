@@ -10,15 +10,25 @@ router.post(USERS + '/register', (req, res) => {
 })
 
 router.post(USERS + '/login', (req, res, next) => {
-  controller.login(req, res, next)
+  controller.login(req, res, next).then(() => console.log(req.isAuthenticated()))
 })
 
 router.get(USERS + '/tasksResolved/:username', (req, res) => {
   controller.getResolvedTasks(req, res)
 })
 
+
+/*
+middleware nem működik - CORS nem engedi interceptorral sem ki a credential-öket..
+
 router.post(USERS + '/logout', isLoggedIn, (req, res) => {
   controller.logout(req, res)
 })
+
+*/
+router.post(USERS + '/logout', (req, res) => {
+  controller.logout(req, res)
+})
+
 
 export default router
