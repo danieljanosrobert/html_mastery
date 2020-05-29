@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { NavigationStart, Router } from '@angular/router'
 
 import { Task } from 'src/app/interfaces/task'
-import { StateService } from 'src/app/services/state.service'
+import { StateService } from 'src/app/services/state/state.service'
 import { ToastService } from 'src/app/services/toast/toast.service'
 import { DomSanitizer } from '@angular/platform-browser'
 

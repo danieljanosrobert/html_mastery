@@ -13,11 +13,11 @@ export const createTask = async (req: any, res: any) => {
     if (saveError) {
       if (saveError.code === 11000) {
         return res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
-        .send('Task\'s title already in use')
+        .send({msg: 'Task\'s title already in use'})
       }
       return res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR)
-        .send('Error occured during saving the task.')
+        .send({msg: 'Error occured during saving the task.'})
     }
-    return res.sendStatus(constants.HTTP_STATUS_OK)
+    return res.status(constants.HTTP_STATUS_OK).send({})
   })
 }

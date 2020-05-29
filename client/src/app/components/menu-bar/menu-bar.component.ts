@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output } from '@angular/core'
 import { Router, NavigationStart } from '@angular/router'
 
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { Task } from 'src/app/interfaces/task'
-import { StateService } from 'src/app/services/state.service'
+import { StateService } from 'src/app/services/state/state.service'
 import { TaskDetailWrapperComponent } from 'src/app/components/task-detail-wrapper/task-detail-wrapper.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastService } from 'src/app/services/toast/toast.service'
+import { EventEmitter } from 'protractor'
 
 @Component({
   selector: 'app-menu-bar',
@@ -18,6 +19,8 @@ export class MenuBarComponent implements OnInit {
   task: Task
   faQuestionCircle = faQuestionCircle
   activeRouteIsTask: boolean
+  mastery_level: string
+  username: string
 
   constructor(
     private router: Router,
@@ -27,14 +30,8 @@ export class MenuBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart && event.url) {
-        this.activeRouteIsTask = event.url === '/task'
-        if (this.activeRouteIsTask) {
-          this.fetchTask()
-        }
-      }
-    })
+    this.subscribeToRouteChange();
+    this.subscribeToStateChange();
   }
 
   currentActive(path: string): boolean {
@@ -59,6 +56,29 @@ export class MenuBarComponent implements OnInit {
       this.modalService.dismissAll()
       this.router.navigate(['/home'])
     }
+  }
+
+  logout(): void {
+    this.toastService.show('Sikeres kijelentkezés.', {classname: 'bg-info'})
+    this.stateService.logout()
+  }
+
+  private subscribeToRouteChange(): void {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart && event.url) {
+        this.activeRouteIsTask = event.url === '/task'
+        if (this.activeRouteIsTask) {
+          this.fetchTask()
+        }
+      }
+    })
+  }
+
+  private subscribeToStateChange(): void {
+    this.stateService.masteryLevelValue
+      .subscribe(mastery_level => this.mastery_level = mastery_level)
+    this.stateService.usernameValue
+      .subscribe(username => this.username = username)
   }
 
 }

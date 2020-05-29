@@ -13,6 +13,10 @@ router.post(USERS + '/login', (req, res, next) => {
   controller.login(req, res, next)
 })
 
+router.get(USERS + '/tasksResolved/:username', (req, res) => {
+  controller.getResolvedTasks(req, res)
+})
+
 router.post(USERS + '/logout', isLoggedIn, (req, res) => {
   controller.logout(req, res)
 })

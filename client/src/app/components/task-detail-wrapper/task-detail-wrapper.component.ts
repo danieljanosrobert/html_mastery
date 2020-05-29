@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Task } from 'src/app/interfaces/task'
-import { StateService } from 'src/app/services/state.service'
+import { StateService } from 'src/app/services/state/state.service'
 import { Router } from '@angular/router'
 
 @Component({

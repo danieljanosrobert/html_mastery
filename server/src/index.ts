@@ -9,20 +9,6 @@ import passport from 'passport'
 import { setUpPassport } from './config/passportConfig'
 import cors from "cors"
 
-var router = express.Router()
-
-const options:cors.CorsOptions = {
-  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
-  credentials: true,
-  methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-  origin: "localhost:4200",
-  preflightContinue: false
-}
-
-router.use(cors(options))
-
-router.options("*", cors(options))
-
 const PORT = 3000
 const DB_URL = 'mongodb://localhost/html_mastery' 
 const API = '/api'
@@ -30,9 +16,8 @@ const API = '/api'
 const app = express()
 const db = mongoose.connection
 
-setUpPassport()
-
 app.use(cors())
+setUpPassport()
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({
   extended: true

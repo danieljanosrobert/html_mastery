@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { UserService } from 'src/app/services/user/user-service.service'
+import { StateService } from 'src/app/services/state/state.service'
+import { ToastService } from 'src/app/services/toast/toast.service'
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,11 @@ export class LoginComponent implements OnInit {
   username:string
   password:string
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private stateService: StateService,
+    private toastService: ToastService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -24,7 +30,9 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password
     }).subscribe(user => {
-      console.log(user)
+      this.toastService.show('Sikeres bejelentkezés.', {classname: 'bg-success'})
+      this.stateService.username = user.username
+      this.stateService.masteryLevel = `${user.mastery_level}`
     })
   }
 }
