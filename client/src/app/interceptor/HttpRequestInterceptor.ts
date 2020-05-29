@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
-} from '@angular/common/http';
+} from '@angular/common/http'
 
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
@@ -13,8 +13,8 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     
       req = req.clone({
         // withCredentials: true
-      });
+      })
       
-      return next.handle(req);
+      return next.handle(req)
   }
 }

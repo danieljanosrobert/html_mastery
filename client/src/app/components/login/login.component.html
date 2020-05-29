@@ -2,11 +2,12 @@
 
   <p class="h4 mb-4">Bejelentkezés</p>
 
-  <input type="text" name="username" class="form-control mb-4" [(ngModel)]="username" placeholder="Felhasználónév">
+  <input type="text" name="username" (change)="showError = false" class="form-control mb-4" [(ngModel)]="username" placeholder="Felhasználónév">
 
-  <input type="password" name="password" class="form-control mb-4" [(ngModel)]="password" placeholder="Jelszó">
+  <input type="password" name="password" (change)="showError = false" class="form-control mb-4" [(ngModel)]="password" placeholder="Jelszó">
 
   <button type="button" (click)="login()" class="btn btn btn-outline-dark my-4">Bejelentkezés</button>
+  <p *ngIf="showError" class="text-danger">{{errorMessage}}</p>
 
   <p>Nincs felhasználója?
     <span class="pointer" (click)="registerClicked.emit()">Regisztráljon!</span>

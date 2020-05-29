@@ -1,0 +1,53 @@
+<div class="custom-bg-mid">
+  <div class="main custom-colors-2">
+    <h1 class="text-center display-3 py-2">mastery_level: master</h1>
+    <h3 class="text-center text-muted py-2 pb-5">Ezen az oldalon Te magad is létrehozhatsz feladatokat.</h3>
+
+    <div class="justify-content-center text-muted">
+      <div class="row">
+        <div class="form-group col-4 offset-4">
+          <label>Feladat címe</label>
+          <input required name="title" [(ngModel)]="title" type="text" class="form-control" placeholder="Feladat címe">
+        </div>
+
+        <div class="form-group col-4 offset-4">
+          <label>Feladat leírása</label>
+          <textarea required type="textarea" name="description" [(ngModel)]="description" class="form-control" rows="6" placeholder="Feladat leírása"></textarea>
+        </div>
+
+        <div class="form-group col-4 offset-4">
+          <label>Kitöltésre használható idő (0 = nincs időkorlát)</label>
+          <div class="row">
+            <div class="col-10">
+              <input required model="duration" [(ngModel)]="duration" type="number" class="form-control" min="0">
+            </div>
+            <div class="col-2 text-right">
+              <span>perc</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 offset-4">
+          <h3 class="text-muted text-center py-2 pt-5">Kiindulási kódrész</h3>
+        </div>
+        <div class="col-12">
+          <ngx-monaco-editor class="pa-0 ma-0" [options]="editorOptions" [(ngModel)]="base_source_code">
+          </ngx-monaco-editor>
+        </div>
+        <div class="col-4 offset-4">
+          <h3 class="text-muted text-center py-2 pt-5">Végeredmény</h3>
+        </div>
+        <div class="col-6">
+          <ngx-monaco-editor style="height: 600px;" class="pa-0 ma-0" [options]="editorOptions" [(ngModel)]="solution">
+          </ngx-monaco-editor>
+        </div>
+        <div class="col-6 pa-0 ma-0">
+          <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(solution)"></div>
+        </div>
+        <div class="col-4 offset-4 py-2 my-4">
+          <button type="button" (click)="createTask()" class=" block btn btn-secondary btn-block">Feladat beküldése</button>
+          <p *ngIf="showError" class="text-danger">{{errorMessage}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -34,8 +34,8 @@ export class MenuBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.subscribeToRouteChange();
-    this.subscribeToStateChange();
+    this.subscribeToRouteChange()
+    this.subscribeToStateChange()
   }
 
   currentActive(path: string): boolean {
@@ -65,18 +65,31 @@ export class MenuBarComponent implements OnInit {
   logout(): void {
     this.userService.logout(this.username)
       .subscribe(() => {
-        this.toastService.show('Sikeres kijelentkezés.', {classname: 'bg-info'})
+        this.toastService.show('Sikeres kijelentkezés.', { classname: 'bg-info' })
         this.stateService.logout()
+        this.router.navigate(['/home'])
       })
   }
 
   fireSendTaskRequest(): void {
     const modified_source_code = this.task.base_source_code
+    let tempIfFailed = this.task.max_duration
     this.task.max_duration = 300
     this.taskService.reviewTask({
       username: this.username,
       task_title: this.task.title,
       source_code: modified_source_code
+    }).subscribe(data => {
+      if (data.result === "success") {
+        this.toastService.show('Sikerült megoldani a feladatot! Ha ez elsőre történt, akkor mastery_level-je szintet nőtt!', { classname: 'bg-success' })
+        this.refreshMasteryLevel()
+        this.router.navigate(['/dashboard'])
+      } else if (data.result === "fail") {
+        this.toastService.show('Nem sikerült megoldani a feladatot. Próbálkozzon tovább!', { classname: 'bg-info' })
+        this.task.max_duration = tempIfFailed
+      } else {
+        this.toastService.show('Sajnáljuk, hiba történt ellenőrzés során. Próbálkozzon újra később', { classname: 'bg-danger' })
+      }
     })
   }
 
@@ -96,6 +109,12 @@ export class MenuBarComponent implements OnInit {
       .subscribe(mastery_level => this.mastery_level = mastery_level)
     this.stateService.usernameValue
       .subscribe(username => this.username = username)
+  }
+
+  private refreshMasteryLevel(): void {
+    this.userService.getMasteryLevel(this.username).subscribe((response) => {
+      this.stateService.masteryLevel = `${response.mastery_level}`
+    })
   }
 
 }

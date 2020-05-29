@@ -5,12 +5,10 @@ import { Strategy as LocalStrategy } from 'passport-local'
 export function setUpPassport(): void {
   passport.serializeUser((user: any, done: any) => {
     if (!user) { return done('Error - User does not exist', undefined) }
-    console.log(user.username)
     return done(null, user.username)
   })
 
   passport.deserializeUser((id: any, done: any) => {
-    console.log(id)
     User.findOne({username: id}, (err, user) => { done(err, user) })
   })
 

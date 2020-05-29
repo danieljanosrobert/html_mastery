@@ -10,13 +10,16 @@ router.post(USERS + '/register', (req, res) => {
 })
 
 router.post(USERS + '/login', (req, res, next) => {
-  controller.login(req, res, next).then(() => console.log(req.isAuthenticated()))
+  controller.login(req, res, next)
 })
 
-router.get(USERS + '/tasksResolved/:username', (req, res) => {
+router.get(USERS + '/mastery_level/:username', (req, res) => {
+  controller.getMasteryLevel(req, res)
+})
+
+router.get(USERS + '/solved/:username', (req, res) => {
   controller.getResolvedTasks(req, res)
 })
-
 
 /*
 middleware nem működik - CORS nem engedi interceptorral sem ki a credential-öket..

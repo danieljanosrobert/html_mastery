@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { TaskDetailWrapperComponent } from 'src/app/components/task-detail-wrapper/task-detail-wrapper.component'
 import { Task } from 'src/app/interfaces/task'
+import { TaskService } from 'src/app/services/task/task.service'
+import { UserService } from 'src/app/services/user/user-service.service'
+import { StateService } from 'src/app/services/state/state.service'
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-dashboard',
@@ -12,23 +16,22 @@ import { Task } from 'src/app/interfaces/task'
 export class DashboardComponent implements OnInit {
 
   faChevronDown = faChevronDown
+  faCheck = faCheck
 
-  tasks = [{
-    title: "első feladat",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque libero nisi, nec blandit quam venenatis at. Maecenas eu molestie urna. Quisque eget tempor sem. Fusce feugiat mi sed ante placerat, vitae ultricies arcu sollicitudin. Nunc consectetur et felis eu eleifend. Fusce molestie ligula in malesuada placerat. Sed consequat sed sapien quis vulputate. Curabitur nec nunc diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-    max_duration: 0,
-    base_source_code: '<html>\n\n</html>'
-  },{
-    title: "első feladat",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque libero nisi, nec blandit quam venenatis at. Maecenas eu molestie urna. Quisque eget tempor sem. Fusce feugiat mi sed ante placerat, vitae ultricies arcu sollicitudin. Nunc consectetur et felis eu eleifend. Fusce molestie ligula in malesuada placerat. Sed consequat sed sapien quis vulputate. Curabitur nec nunc diam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
-    max_duration: 20,
-    base_source_code: '<html>\n\n</html>'
-  }]
+  tasks: Task[]
   selectedTask: Task
+  solvedTasks: string[]
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private modalService: NgbModal,
+    private taskService: TaskService,
+    private userService: UserService,
+    private stateService: StateService
+    ) { }
 
   ngOnInit(): void {
+    this.fetchTasks()
+    this.getUsersSolvedTasks()
   }
 
   showTask(task: Task): void {
@@ -54,5 +57,23 @@ export class DashboardComponent implements OnInit {
   openTaskDetails(task: Task) {
     const modalRef = this.modalService.open(TaskDetailWrapperComponent, { centered: true, scrollable:true })
     modalRef.componentInstance.task = task
+  }
+
+  userSolvedIt(title: string): boolean {
+    return _.includes(this.solvedTasks, title)
+  }
+
+  private fetchTasks(): void {
+    this.taskService.getTasks()
+      .subscribe((tasks) => {
+        this.tasks = tasks
+      })
+  }
+
+  private getUsersSolvedTasks(): void {
+    this.userService.getSolvedTasks(this.stateService.username)
+      .subscribe((tasks) => {
+        this.solvedTasks = tasks
+    })
   }
 }

@@ -2,12 +2,13 @@
 
   <p class="h4 mb-4">Regisztráció</p>
 
-  <input type="text" name="username" [(ngModel)]="username" class="form-control mb-4" placeholder="Felhasználónév">
+  <input type="text" (change)="showError = false" name="username" [(ngModel)]="username" class="form-control mb-4" placeholder="Felhasználónév">
 
-  <input type="password" name="password" [(ngModel)]="password" class="form-control mb-4" placeholder="Jelszó">
+  <input type="password" (change)="showError = false" name="password" [(ngModel)]="password" class="form-control mb-4" placeholder="Jelszó">
 
-  <input type="password" name="confirm-password" [(ngModel)]="confirm_password" class="form-control mb-4" placeholder="Jelszó újra">
+  <input type="password" (change)="showError = false" name="confirm-password" [(ngModel)]="confirm_password" class="form-control mb-4" placeholder="Jelszó újra">
 
   <button type="button" (click)="register()" class="btn btn btn-outline-dark my-4" >Regisztráció</button>
+  <p *ngIf="showError" class="text-danger">{{errorMessage}}</p>
 
 </form>

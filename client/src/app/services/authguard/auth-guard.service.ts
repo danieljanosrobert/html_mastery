@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
-import { ToastService } from '../toast/toast.service';
+import { Injectable } from '@angular/core'
+import { CanActivate, Router } from '@angular/router'
+import { ToastService } from '../toast/toast.service'
 
 @Injectable({
   providedIn: 'root'

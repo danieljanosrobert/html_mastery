@@ -16,13 +16,16 @@ export class RegisterComponent implements OnInit {
   password: string
   confirm_password: string
 
+  showError: boolean
+  errorMessage: string
+
   constructor(
     private userService: UserService,
     private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
-    
+
   }
 
   register(): void {
@@ -31,8 +34,19 @@ export class RegisterComponent implements OnInit {
       password: this.password,
       confirm_password: this.confirm_password
     }).subscribe(() => {
-      this.toastService.show('Sikeres regisztráció. A folytatáshoz jelentkezzen be!', {classname: 'bg-info'})
+      this.toastService.show('Sikeres regisztráció. A folytatáshoz jelentkezzen be!', { classname: 'bg-info' })
       this.registerSucceed.emit()
+    }, (error) => {
+      this.showError = true
+      if (error.status === 400) {
+        this.errorMessage = 'A jelszavak nem egyeznek.'
+      } else if (error.status === 409) {
+        this.errorMessage = 'Ez a felhasználónév már regisztrálva van a rendszerben.'
+      } else if (error.status === 451) {
+        this.errorMessage = 'A mezők nem maradhatnak üresen.'
+      } else {
+        this.errorMessage = 'Valami hiba történt. Próbálkozzon újra később.'
+      }
     })
   }
 

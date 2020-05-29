@@ -18,6 +18,7 @@ import { TaskDetailWrapperComponent } from './components/task-detail-wrapper/tas
 import { HomepageComponent } from './pages/homepage/homepage.component'
 import { ToastComponent } from './components/toast/toast.component'
 import { HttpRequestInterceptor } from './interceptor/HttpRequestInterceptor'
+import { EastereggComponent } from './pages/easteregg/easteregg.component'
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { HttpRequestInterceptor } from './interceptor/HttpRequestInterceptor'
     TaskDetailWrapperComponent,
     HomepageComponent,
     ToastComponent,
+    EastereggComponent,
   ],
   imports: [
     BrowserModule,

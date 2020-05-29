@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { User, AuthenticatableUser, RegisterableUser } from 'src/app/interfaces/user'
+import { User, AuthenticatableUser, RegisterableUser, MasteryLevelObject } from 'src/app/interfaces/user'
 import { environment } from 'src/environments/environment'
 import { Observable } from 'rxjs'
 
@@ -29,4 +29,13 @@ export class UserService {
   logout(username: string): Observable<void> {
     return this.http.post<void>(`${environment.apiUrl}/users/logout`, {username: username})
   }
+
+  getMasteryLevel(username: string): Observable<MasteryLevelObject> {
+    return this.http.get<MasteryLevelObject>(`${environment.apiUrl}/users/mastery_level/${username}`)
+  }
+
+  getSolvedTasks(username: string): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.apiUrl}/users/solved/${username}`)
+  }
+
 }

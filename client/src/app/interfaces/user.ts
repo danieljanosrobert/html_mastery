@@ -14,3 +14,7 @@ export interface RegisterableUser {
   password: string
   confirm_password: string
 }
+
+export interface MasteryLevelObject {
+  mastery_level: number
+}
