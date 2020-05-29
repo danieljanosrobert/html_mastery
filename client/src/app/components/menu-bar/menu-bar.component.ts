@@ -87,6 +87,10 @@ export class MenuBarComponent implements OnInit {
       } else if (data.result === "fail") {
         this.toastService.show('Nem sikerült megoldani a feladatot. Próbálkozzon tovább!', { classname: 'bg-info' })
         this.task.max_duration = tempIfFailed
+      }
+    }, (error) => {
+      if (error.status === 403) {
+        this.toastService.show('A megadott forráskód hibás. Javítsa ki a hibát, majd próbálkozzon újra', { classname: 'bg-danger' })
       } else {
         this.toastService.show('Sajnáljuk, hiba történt ellenőrzés során. Próbálkozzon újra később', { classname: 'bg-danger' })
       }

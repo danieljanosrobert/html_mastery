@@ -33,6 +33,13 @@ export const createTask = async (req: any, res: any) => {
     solution: req.body.solution,
     max_duration: req.body.max_duration ? req.body.max_duration : 0
   })
+  try {
+    html2json(trimHtml(task.base_source_code))
+    html2json(trimHtml(task.solution))
+  } catch (err) {
+    return res.status(constants.HTTP_STATUS_FORBIDDEN)
+        .send({msg: 'Parse error. Please fix the code'})
+  }
   if (!task.title) {
     return res.status(constants.HTTP_STATUS_BAD_REQUEST)
         .send({msg: 'Title is required'})
@@ -55,6 +62,12 @@ export const reviewTask = async (req: any, res: any) => {
     username: req.body.username,
     task_title: req.body.task_title,
     source_code: req.body.source_code
+  }
+  try {
+    html2json(trimHtml(completeTask.source_code))
+  } catch (err) {
+    return res.status(constants.HTTP_STATUS_FORBIDDEN)
+        .send({msg: 'Parse error. Please fix the code'})
   }
   Task.findOne({title: completeTask.task_title}, (err, task) => {
     if (err) {

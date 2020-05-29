@@ -57,6 +57,8 @@ export class EastereggComponent implements OnInit {
         this.errorMessage = 'Cím nélkül nem jöhet létre feladat'
       } else if (error.status === 409) {
         this.errorMessage = 'Ilyen címmel már létezik feladat. válasszon másikat!'
+      } else if (error.status === 403) {
+        this.errorMessage = 'A megadott forráskód hibás. Javítsa ki a hibát, majd próbálkozzon újra'
       } else {
         this.errorMessage = 'Valami hiba történt. Próbálkozzon újra később.'
       }
