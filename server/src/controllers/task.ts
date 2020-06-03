@@ -91,7 +91,8 @@ export const reviewTask = async (req: any, res: any) => {
 
 const trimHtml = function(str: string) {
   return str.replace(/(\r\n|\n|\r|\t)/gm, '')
-    .replace(/  +/g, ' ').replace('> <', '><')
+    .replace(/  +/g, ' ').replace(/> </g, '><')
+    .replace(/ <|< /g, '<').replace(/> | >/g, '>')
 }
 
 interface ReviewableTask {
